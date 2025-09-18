@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindCare | Gamification</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    .hover-scale:hover {
+      transform: scale(1.05);
+      transition: all 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-r from-purple-100 via-pink-100 to-indigo-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-purple-600 animate__animated animate__bounceIn">🎮 Gamification</h1>
+    <a href="dashboard.html" class="text-purple-500 hover:underline">⬅ Back</a>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow p-6 max-w-5xl mx-auto space-y-10">
+
+    <!-- Progress Bar -->
+    <section class="bg-white rounded-2xl shadow-xl p-6 hover-scale animate__animated animate__fadeInUp">
+      <h2 class="text-xl font-bold text-purple-700 mb-4">🔥 Your Progress</h2>
+      <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
+        <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-6 text-xs text-white text-center p-0.5 leading-none rounded-full animate__animated animate__slideInLeft" style="width: 65%">65%</div>
+      </div>
+      <p class="mt-3 text-gray-600">You're doing amazing! Just a little more to reach the next level 🚀</p>
+    </section>
+
+    <!-- Streak Counter -->
+    <section class="bg-white rounded-2xl shadow-xl p-6 hover-scale animate__animated animate__fadeInUp">
+      <h2 class="text-xl font-bold text-orange-600 mb-4">🔥 Daily Streak</h2>
+      <p class="text-3xl font-extrabold text-gray-800">7 Days 🔥</p>
+      <p class="text-gray-600">Consistency is power! Keep going to maintain your streak.</p>
+    </section>
+
+    <!-- Badges Section -->
+    <section class="bg-white rounded-2xl shadow-xl p-6 hover-scale animate__animated animate__fadeInUp">
+      <h2 class="text-xl font-bold text-green-600 mb-4">🏆 Your Badges</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="flex flex-col items-center space-y-2">
+          <img src="https://cdn-icons-png.flaticon.com/512/616/616489.png" alt="Beginner Badge" class="w-16 h-16">
+          <p class="text-sm font-semibold">Beginner</p>
+        </div>
+        <div class="flex flex-col items-center space-y-2">
+          <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Consistency Badge" class="w-16 h-16">
+          <p class="text-sm font-semibold">Consistency</p>
+        </div>
+        <div class="flex flex-col items-center space-y-2">
+          <img src="https://cdn-icons-png.flaticon.com/512/616/616554.png" alt="Warrior Badge" class="w-16 h-16">
+          <p class="text-sm font-semibold">Warrior</p>
+        </div>
+        <div class="flex flex-col items-center space-y-2">
+          <img src="https://cdn-icons-png.flaticon.com/512/616/616490.png" alt="Champion Badge" class="w-16 h-16">
+          <p class="text-sm font-semibold">Champion</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leaderboard -->
+    <section class="bg-white rounded-2xl shadow-xl p-6 hover-scale animate__animated animate__fadeInUp">
+      <h2 class="text-xl font-bold text-blue-600 mb-4">📊 Leaderboard</h2>
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-blue-100">
+            <th class="text-left p-2">Rank</th>
+            <th class="text-left p-2">User</th>
+            <th class="text-left p-2">Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hover:bg-blue-50">
+            <td class="p-2 font-bold">#1</td>
+            <td class="p-2">Rajesh</td>
+            <td class="p-2">1200</td>
+          </tr>
+          <tr class="hover:bg-blue-50">
+            <td class="p-2 font-bold">#2</td>
+            <td class="p-2">Sneha</td>
+            <td class="p-2">1100</td>
+          </tr>
+          <tr class="hover:bg-blue-50">
+            <td class="p-2 font-bold">#3</td>
+            <td class="p-2">Amit</td>
+            <td class="p-2">950</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Motivational Quote -->
+    <section class="bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-2xl shadow-xl p-8 text-center hover-scale animate__animated animate__fadeInUp">
+      <h2 class="text-2xl font-bold mb-3">✨ Motivation for You</h2>
+      <p class="text-lg italic">“Small progress each day adds up to big results.”</p>
+    </section>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Extra custom animations */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      animation: fadeInUp 0.8s ease-in-out;
+    }
+  </style>
+</head>
+<body >
+    <header class="bg-white shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-blue-600 animate__animated animate__pulse animate__infinite">Survey...</h1>
+    <a href="dashboard.html" class="text-blue-500 hover:underline">⬅ Back to Dashboard</a>
+  </header>
+
+    <div class="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 min-h-screen flex items-center justify-center p-6">
+        <div class="bg-white/90 shadow-2xl rounded-2xl w-full max-w-2xl p-8 fade-up">
+    <h1 class="text-3xl font-extrabold text-center text-purple-700 mb-6">✨ User Survey ✨</h1>
+
+    <!-- Survey Form -->
+    <form id="surveyForm" class="space-y-6">
+      
+      <!-- Name -->
+      <div>
+        <label class="block font-semibold text-gray-700">Name</label>
+        <input type="text" name="name" required 
+          class="w-full mt-2 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 outline-none transition transform hover:scale-[1.02]">
+      </div>
+
+      <!-- Email -->
+      
+
+      <!-- Age -->
+      <div>
+        <label class="block font-semibold text-gray-700">Age</label>
+        <input type="number" name="age" min="10" max="100" required
+          class="w-full mt-2 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 outline-none transition transform hover:scale-[1.02]">
+      </div>
+
+      <!-- Rating -->
+      <div>
+        <label class="block font-semibold text-gray-700">Rate Your Experience</label>
+        <div class="flex gap-4 mt-2">
+          <label class="cursor-pointer hover:scale-110 transition">
+            <input type="radio" name="rating" value="Excellent" required> 🌟 Excellent
+          </label>
+          <label class="cursor-pointer hover:scale-110 transition">
+            <input type="radio" name="rating" value="Good"> 👍 Good
+          </label>
+          <label class="cursor-pointer hover:scale-110 transition">
+            <input type="radio" name="rating" value="Average"> 😐 Average
+          </label>
+        </div>
+      </div>
+
+      <!-- Feedback -->
+      <div>
+        <label class="block font-semibold text-gray-700">Feedback</label>
+        <textarea name="feedback" rows="4"
+          class="w-full mt-2 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 outline-none transition transform hover:scale-[1.02]"></textarea>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex justify-between items-center">
+        <button type="submit"
+          class="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold px-6 py-3 rounded-lg shadow-md hover:scale-105 hover:shadow-xl transition">
+          🚀 Submit
+        </button>
+        <button type="button" id="viewData"
+          class="bg-gradient-to-r from-orange-400 to-red-500 text-white font-bold px-6 py-3 rounded-lg shadow-md hover:scale-105 hover:shadow-xl transition">
+          📂 View Saved Data
+        </button>
+      </div>
+    </form>
+
+    <!-- Saved Data Section -->
+    <div id="savedData" class="mt-8 hidden bg-gray-100 p-4 rounded-xl shadow-inner"></div>
+
+  </div>
+    </div>
+
+  
+
+  <!-- JavaScript -->
+  <script>
+    const form = document.getElementById("surveyForm");
+    const viewBtn = document.getElementById("viewData");
+    const savedDataDiv = document.getElementById("savedData");
+
+    // Save data to localStorage
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const surveyData = {};
+      formData.forEach((value, key) => {
+        surveyData[key] = value;
+      });
+
+      // Save to localStorage
+      let surveys = JSON.parse(localStorage.getItem("surveys")) || [];
+      surveys.push(surveyData);
+      localStorage.setItem("surveys", JSON.stringify(surveys));
+
+      alert("✅ Survey submitted successfully!");
+      form.reset();
+    });
+
+    // View saved data
+    viewBtn.addEventListener("click", function() {
+      let surveys = JSON.parse(localStorage.getItem("surveys")) || [];
+      if (surveys.length === 0) {
+        savedDataDiv.innerHTML = "<p class='text-gray-600 font-medium'>No surveys submitted yet.</p>";
+      } else {
+        savedDataDiv.innerHTML = surveys.map((s, i) => `
+          <div class="mb-4 p-4 bg-white rounded-lg shadow-md hover:scale-[1.01] transition">
+            <p><strong>Name:</strong> ${s.name}</p>
+            <p><strong>Email:</strong> ${s.email}</p>
+            <p><strong>Age:</strong> ${s.age}</p>
+            <p><strong>Rating:</strong> ${s.rating}</p>
+            <p><strong>Feedback:</strong> ${s.feedback}</p>
+          </div>
+        `).join("");
+      }
+      savedDataDiv.classList.remove("hidden");
+    });
+    const surveyForm = document.getElementById("surveyForm");
+
+  surveyForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(surveyForm);
+    const surveyData = {};
+    formData.forEach((value, key) => {
+      surveyData[key] = value;
+    });
+
+    // पुराने surveys लाओ
+    let surveys = JSON.parse(localStorage.getItem("surveys") || "[]");
+    surveys.push(surveyData);
+    localStorage.setItem("surveys", JSON.stringify(surveys));
+
+    // ✅ अब dashboard पर redirect
+    window.location.href = "dashboard.html";
+  });
+  const surveyForms = document.getElementById("surveyForm");
+
+  surveyForms.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(surveyForms);
+    const surveyData = {};
+    formData.forEach((value, key) => {
+      surveyData[key] = value;
+    });
+
+    // पुराने surveys localStorage में save
+    let surveys = JSON.parse(localStorage.getItem("surveys") || "[]");
+    surveys.push(surveyData);
+    localStorage.setItem("surveys", JSON.stringify(surveys));
+
+    // ✅ Toast बनाओ
+    const toast = document.createElement("div");
+    toast.innerText = "✅ Survey Saved! Redirecting to Dashboard…";
+    toast.className =
+      "fixed bottom-5 right-5 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg animate__animated animate__fadeInUp";
+    document.body.appendChild(toast);
+
+    // 2.5 सेकंड बाद redirect
+    setTimeout(() => {
+      toast.classList.add("animate__fadeOutDown");
+      setTimeout(() => {
+        toast.remove();
+        window.location.href = "dashboard.html";
+      }, 500);
+    }, 2000);
+  });
+  </script>
+</body>
+</html>

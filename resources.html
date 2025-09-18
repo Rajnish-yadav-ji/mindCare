@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindCare | Resources</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    .hover-scale:hover {
+      transform: scale(1.05);
+      transition: all 0.3s ease-in-out;
+    }
+    .card-hover:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transition: all 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-indigo-600 animate__animated animate__fadeIn">📚 Resources</h1>
+    <a href="dashboard.html" class="text-indigo-500 hover:underline">⬅ Back</a>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow p-6 max-w-6xl mx-auto space-y-12">
+
+    <!-- Categories -->
+    <section class="animate__animated animate__fadeInUp">
+      <h2 class="text-xl font-bold text-purple-700 mb-6">Explore by Category</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="bg-white rounded-2xl p-4 text-center hover-scale card-hover">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="mx-auto w-16 h-16 mb-4" alt="Mental Health">
+          <h3 class="font-semibold text-lg">Mental Health</h3>
+          <p class="text-gray-600 text-sm mt-2">Tips, articles, and guides for a healthy mind.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 text-center hover-scale card-hover">
+          <img src="https://cdn-icons-png.flaticon.com/512/3219/3219376.png" class="mx-auto w-16 h-16 mb-4" alt="Meditation">
+          <h3 class="font-semibold text-lg">Meditation</h3>
+          <p class="text-gray-600 text-sm mt-2">Guided meditations and mindfulness exercises.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 text-center hover-scale card-hover">
+          <img src="https://cdn-icons-png.flaticon.com/512/273/273241.png" class="mx-auto w-16 h-16 mb-4" alt="Workshops">
+          <h3 class="font-semibold text-lg">Workshops</h3>
+          <p class="text-gray-600 text-sm mt-2">Upcoming mental wellness workshops and events.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 text-center hover-scale card-hover">
+          <img src="https://cdn-icons-png.flaticon.com/512/2910/2910764.png" class="mx-auto w-16 h-16 mb-4" alt="Books">
+          <h3 class="font-semibold text-lg">Books</h3>
+          <p class="text-gray-600 text-sm mt-2">Recommended reads on personal growth & mental health.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Resources -->
+    <section class="animate__animated animate__fadeInUp">
+      <h2 class="text-xl font-bold text-green-700 mb-6">Popular Resources</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-6 hover-scale card-hover flex space-x-4 items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-20 h-20" alt="Mental Health Tips">
+          <div>
+            <h3 class="font-semibold text-lg">10 Tips for Stress Relief</h3>
+            <p class="text-gray-600 text-sm mt-1">Simple daily habits to reduce stress and anxiety effectively.</p>
+            <a href="#" class="text-green-600 hover:underline mt-2 inline-block">Read More →</a>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 hover-scale card-hover flex space-x-4 items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/3219/3219376.png" class="w-20 h-20" alt="Meditation Guide">
+          <div>
+            <h3 class="font-semibold text-lg">Guided Meditation for Beginners</h3>
+            <p class="text-gray-600 text-sm mt-1">Step by step meditation guide to calm your mind in 10 minutes.</p>
+            <a href="#" class="text-green-600 hover:underline mt-2 inline-block">Start Now →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Videos -->
+    <section class="animate__animated animate__fadeInUp">
+      <h2 class="text-xl font-bold text-blue-700 mb-6">Featured Videos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl overflow-hidden hover-scale card-hover">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/bLpChrgS0AY?si=TH-6wlyFekqpOkLh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Mindfulness Basics</h3>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl overflow-hidden hover-scale card-hover">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/WuyPuH9ojCE?si=0HhvfoLhFUzCpl2U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Stress Management</h3>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl overflow-hidden hover-scale card-hover">
+          <iframe width="560" height="205" src="https://www.youtube.com/embed/thcEuMDWxoI?si=DERgXEMBmCyPoUq9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Meditation Techniques</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MindCare • Dashboard</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* extra small custom styles */
+    .nav-blur { backdrop-filter: blur(6px); background-color: rgba(255,255,255,0.6); }
+    .glass { background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255,255,255,0.35)); backdrop-filter: blur(6px); }
+    .logo-spin { animation: spin 6s linear infinite; }
+    @keyframes spin {
+      0% { transform: rotate(0deg) translateZ(0); }
+      50% { transform: rotate(180deg) translateZ(0); }
+      100% { transform: rotate(360deg) translateZ(0); }
+    }
+    /* mobile nav slide */
+    .mobile-open { transform: translateX(0%); }
+    .mobile-closed { transform: translateX(100%); }
+    .smooth { transition: all 300ms cubic-bezier(.2,.8,.2,1); }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-purple-100 to-pink-50 min-h-screen font-sans">
+
+  <!-- NAVBAR -->
+  <header class="fixed top-4 left-0 right-0 z-50 px-4">
+    <div class="max-w-6xl mx-auto flex items-center justify-between nav-blur rounded-2xl p-3 shadow-lg smooth">
+      <!-- Left: logo + brand -->
+      <a href="index.html" class="flex items-center gap-3">
+        <!-- animated logo (svg) -->
+        <div class="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg transform hover:scale-105 transition">
+          <!-- simple heart+brain icon (inline) -->
+          <svg class="w-8 h-8 text-white logo-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21s-7-4.35-9-7.5C.5 10.5 3 6 7.5 6 9.2 6 11 7 12 9c1-2 2.8-3 4.5-3 4.5 0 7 4.5 4.5 7.5C19 16.65 12 21 12 21z" fill="white" />
+          </svg>
+        </div>
+        <div class="hidden sm:block">
+          <div class="text-lg font-extrabold text-gray-800">MindCare</div>
+          <div class="text-xs text-gray-500 -mt-0.5">Mental Wellness for Students</div>
+        </div>
+      </a>
+
+      <!-- Desktop links -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="dashboard.html" class="text-gray-700 font-medium hover:text-indigo-600 transition">Dashboard</a>
+        <a href="survey.html" class="text-gray-700 font-medium hover:text-indigo-600 transition">Survey</a>
+        <a href="resources.html" class="text-gray-700 font-medium hover:text-indigo-600 transition">Resources</a>
+        <a href="gamification.html" class="text-gray-700 font-medium hover:text-indigo-600 transition">Gamification</a>
+        <a href="profile.html" class="text-gray-700 font-medium hover:text-indigo-600 transition">Profile</a>
+
+        <!-- profile quick -->
+        <button id="logoutBtn" class="ml-4 bg-red-500 text-white px-3 py-1.5 rounded-lg hover:scale-105 transition">Logout</button>
+      </nav>
+
+      <!-- Mobile hamburger -->
+      <div class="md:hidden flex items-center gap-3">
+        <button id="searchBtn" title="Search" class="p-2 rounded-lg hover:bg-white/30 transition">🔎</button>
+        <button id="hamburger" aria-label="menu" class="w-12 h-10 flex items-center justify-center rounded-lg bg-white/30 hover:scale-105 transition"> 
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile slide menu -->
+  <div id="mobileMenu" class="fixed top-20 right-4 w-72 bg-white/90 ring-1 ring-gray-200 rounded-2xl shadow-xl p-4 mobile-closed smooth z-40">
+    <div class="flex flex-col gap-3">
+      <a href="dashboard.html" class="px-3 py-2 rounded-lg hover:bg-indigo-50 transition">🏠 Dashboard</a>
+      <a href="survey.html" class="px-3 py-2 rounded-lg hover:bg-indigo-50 transition">📝 Survey</a>
+      <a href="resources.html" class="px-3 py-2 rounded-lg hover:bg-indigo-50 transition">📚 Resources</a>
+      <a href="gamification.html" class="px-3 py-2 rounded-lg hover:bg-indigo-50 transition">🏆 Gamification</a>
+      <a href="profile.html" class="px-3 py-2 rounded-lg hover:bg-indigo-50 transition">👤 Profile</a>
+      <button id="logoutBtnMobile" class="mt-2 px-3 py-2 bg-red-500 text-white rounded-lg hover:scale-105 transition">Logout</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="pt-36 pb-10">
+    <div class="max-w-6xl mx-auto px-4">
+      <!-- Greeting + quick stats -->
+      <section class="grid md:grid-cols-3 gap-6 items-start">
+        <!-- Welcome Card -->
+        <div class="col-span-1 bg-white glass rounded-2xl p-6 shadow-lg animate__animated animate__fadeInLeft">
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white text-2xl shadow-lg">
+              <!-- user initial -->
+              <span id="userInitial" class="font-extrabold"></span>
+            </div>
+            <div>
+              <div id="greeting" class="text-lg font-bold text-gray-800">Welcome, Student 👋</div>
+              <div id="submsg" class="text-sm text-gray-500 mt-1">Here's your wellbeing snapshot today</div>
+            </div>
+          </div>
+
+          <div class="mt-6 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-500">Surveys submitted</div>
+              <div id="surveyCount" class="text-lg font-bold text-indigo-600">0</div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-500">Happy days</div>
+              <div id="happyCount" class="text-lg font-bold text-green-500">0</div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-500">Average / Neutral</div>
+              <div id="avgCount" class="text-lg font-bold text-yellow-500">0</div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-500">Sad days</div>
+              <div id="sadCount" class="text-lg font-bold text-red-500">0</div>
+            </div>
+          </div>
+
+          <a href="survey.html" class="mt-6 inline-block w-full text-center py-2 rounded-lg bg-indigo-600 text-white font-bold hover:scale-105 transition">Take Today's Survey</a>
+        </div>
+
+        <!-- Chart Card -->
+        <div class="col-span-2 bg-white rounded-2xl p-6 shadow-lg animate__animated animate__fadeInUp">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold text-gray-800">Mood Timeline</h3>
+            <div class="text-sm text-gray-500">Track how your mood changed over recent entries</div>
+          </div>
+          <canvas id="moodChart" height="120"></canvas>
+        </div>
+      </section>
+
+      <!-- Resources & Quick Actions -->
+      <section class="mt-8 grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-5 shadow-lg hover:scale-[1.02] transition animate__animated animate__fadeInLeft">
+          <h4 class="font-bold text-gray-800 mb-3">Quick Actions</h4>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li><a href="survey.html" class="hover:text-indigo-600 transition">Take Survey</a></li>
+            <li><a href="resources.html" class="hover:text-indigo-600 transition">Explore Resources</a></li>
+            <li><a href="gamification.html" class="hover:text-indigo-600 transition">Check Badges</a></li>
+            <li><a href="profile.html" class="hover:text-indigo-600 transition">Edit Profile</a></li>
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 shadow-lg hover:scale-[1.02] transition animate__animated animate__fadeInUp">
+          <h4 class="font-bold text-gray-800 mb-3">Daily Tip</h4>
+          <p class="text-sm text-gray-600">“Take 5 deep breaths, step away for 2 minutes, and come back. Small breaks help big time.”</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 shadow-lg hover:scale-[1.02] transition animate__animated animate__fadeInRight">
+          <h4 class="font-bold text-gray-800 mb-3">Streak</h4>
+          <p class="text-sm text-gray-600">You have a <span id="streakCount" class="font-extrabold text-indigo-600">0</span>-day streak of checking in.</p>
+          <a href="gamification.html" class="mt-4 inline-block text-sm bg-gradient-to-r from-pink-500 to-indigo-500 text-white py-2 px-3 rounded-lg hover:scale-105 transition">View Rewards</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-12">
+    <div class="max-w-6xl mx-auto text-center text-sm text-gray-500 pb-8">© 2025 MindCare — Built with ❤️</div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let mobileOpen = false;
+    hamburger.addEventListener('click', () => {
+      mobileOpen = !mobileOpen;
+      if (mobileOpen) {
+        mobileMenu.classList.remove('mobile-closed');
+        mobileMenu.classList.add('mobile-open');
+      } else {
+        mobileMenu.classList.remove('mobile-open');
+        mobileMenu.classList.add('mobile-closed');
+      }
+    });
+
+    // Logout handlers
+    document.getElementById('logoutBtn')?.addEventListener('click', logout);
+    document.getElementById('logoutBtnMobile')?.addEventListener('click', logout);
+    function logout() {
+      localStorage.removeItem('loggedInUser');
+      // optional: keep surveys but clear current user
+      window.location.href = 'index.html';
+    }
+
+    // Populate greeting + stats from localStorage
+    function loadUserAndStats() {
+      const userRaw = localStorage.getItem('loggedInUser');
+      let user = null;
+      try { user = userRaw ? JSON.parse(userRaw) : null; } catch(e){ user = null; }
+      const initialEl = document.getElementById('userInitial');
+      const greetEl = document.getElementById('greeting');
+
+      if (user && user.name) {
+        initialEl.textContent = user.name.charAt(0).toUpperCase();
+        greetEl.textContent = `Welcome, ${user.name.split(' ')[0]} 👋`;
+      } else if (user && user.email) {
+        initialEl.textContent = user.email.charAt(0).toUpperCase();
+        greetEl.textContent = `Welcome back 👋`;
+      } else {
+        initialEl.textContent = 'U';
+        greetEl.textContent = `Welcome, Student 👋`;
+      }
+
+      // Surveys stats
+      const surveys = JSON.parse(localStorage.getItem('surveys') || '[]');
+      const count = surveys.length;
+      document.getElementById('surveyCount').textContent = count;
+
+      // map rating counts
+      let happy = 0, neutral = 0, sad = 0;
+      const labels = [], data = [];
+      surveys.forEach((s, idx) => {
+        const r = (s.rating || '').toLowerCase();
+        if (r.includes('excellent') || r.includes('excellent'.toLowerCase())) happy++;
+        else if (r.includes('good')) neutral++;
+        else neutral += (r==='average' || r.includes('average')) ? 1 : 0;
+        if (r.includes('sad')) sad += 1;
+        labels.push(`#${idx+1}`);
+        // score mapping for chart: excellent=2, good=1, average=1, sad=0
+        const score = r.includes('excellent') ? 2 : (r.includes('good') ? 1 : (r.includes('average') ? 1 : (r.includes('sad') ? 0 : 1)));
+        data.push(score);
+      });
+
+      document.getElementById('happyCount').textContent = happy;
+      document.getElementById('avgCount').textContent = neutral;
+      document.getElementById('sadCount').textContent = sad;
+
+      // Streak: naive approach = surveys length (can be replaced by date logic)
+      document.getElementById('streakCount').textContent = Math.min(count, 30);
+
+      // Prepare chart
+      const ctx = document.getElementById('moodChart').getContext('2d');
+      // destroy previous chart if exists
+      if (window._moodChart) window._moodChart.destroy();
+      window._moodChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels.length ? labels : ['No data'],
+          datasets: [{
+            label: 'Mood (2=Happy,1=Okay,0=Sad)',
+            data: data.length ? data : [0],
+            fill: true,
+            backgroundColor: 'rgba(139,92,246,0.15)',
+            borderColor: 'rgba(139,92,246,1)',
+            tension: 0.4,
+            pointRadius: 6,
+            pointHoverRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              min: 0,
+              max: 2,
+              ticks: {
+                stepSize: 1,
+                callback: function(val) { return val === 2 ? '😊' : (val===1 ? '😐' : '😔'); }
+              }
+            }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    // run on load
+    window.addEventListener('DOMContentLoaded', () => {
+      // ensure mobile menu starts closed
+      mobileMenu.classList.add('mobile-closed');
+      loadUserAndStats();
+    });
+  </script>
+</body>
+</html>
